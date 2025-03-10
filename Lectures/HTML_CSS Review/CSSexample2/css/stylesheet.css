@@ -1,0 +1,63 @@
+body {
+padding: 20px; }
+
+h1, h2, h3, a {
+font-weight: normal;
+color: #0088dd;
+margin: 0px;
+font-size: 250%;}
+
+h1 {
+font-family: Georgia, Times, serif;
+text-shadow: 2px 2px 3px #000000;
+padding-bottom: 10px; }
+
+h2 {
+font-family: "Gill Sans", Arial, sans-serif;
+font-size: 90%;
+text-transform: uppercase;
+letter-spacing: 0.2em; }
+
+h3 {
+font-size: 150%; }
+
+p {
+font-family: Arial, Verdana, sans-serif;
+line-height: 1.4em;
+color: #665544; }
+
+p.intro:first-line {
+font-weight: bold;}
+
+.credits {
+font-style: italic;
+text-align: right;
+}
+
+a {
+text-decoration: underline;
+font-size: 100%;}
+
+a:hover {
+color: #000000;
+text-decoration: line-through;}
+
+input {
+padding: 6px 12px 6px 12px;
+border: 1px solid #665544;
+color: #ffffff;}
+
+input.submit:hover {
+background-color: red;}
+
+input.submit:active {
+background-color: green;}
+
+input.submit:focus {
+background-color: #000000;}
+
+input.text {
+color: #cccccc;}
+
+input.text:focus {
+color:#665544;}
