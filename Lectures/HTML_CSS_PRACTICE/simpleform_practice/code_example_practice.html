@@ -54,11 +54,106 @@
    <table width="700" cellpadding="10" cellspacing="3" border="2", bgcolor="#efefef">
 
     <thead>
-        <tr bgcolor="#d4267a"
-
+        <tr bgcolor="#d4267a">
+        <th>Sat</th>
+        <th>Sun</th>
+        <th>Mon</th>
+        <th>Tue</th>
+        <th>Wed</th>
+        <th>Thu</th>
+        <th>Fri</th>
+        </tr>
+        
     </thead>
 
+    <tbody>
+        <tr>
+            <td colspan="2" bgcolor="yellow">Weekend</td>
+            <td>Assignment</td>
+            <td>Lecture</td>
+            <td>Quiz</td>
+            <td>Lecture</td>
+            <td>Quiz</td>
+        </tr>
+        <tr>
+            <td colspan="7" bgcolor="#1dcf49">Student Week</td>
+        </tr>
+
+        <tr>
+            <td rowspan="2" colspan="2" bgcolor="yellow">Weekend</td>
+            <td>Assignment</td>
+            <td>Lecture</td>
+            <td>Quiz</td>
+            <td>Lecture</td>
+            <td>Quiz</td>
+        </tr>
+
+        <tr>
+            <td>Assignment</td>
+            <td>Lecture</td>
+            <td>Quiz</td>
+            <td>Lecture</td>
+            <td>Quiz</td>
+        </tr>
+
+        <tr>
+            <td colspan = 2>
+                <img src="images/IMG_2436.JPG" width=50 />
+         </td>
+            <td>Lecture</td>
+            <td>Quiz</td>
+            <td>Lecture</td>
+            <td>Quiz</td>
+        </tr>
+    </tbody>
+    <tfoot>
+
+        <tr>
+            <td colspan="7", bgcolor="#5345cc">Exam Week
+
+                <img src="images/IMG_2436.JPG" height=100 align="right" />
+
+                <a href="https://www.w3.org">
+                    <img src="images/IMG_2428.JPG" height=100 align="right"/>
+                </a>
+
+            </td>
+        </tr>
+    </tfoot>
    </table>
+
+   <form id="studentsurvey">
+    <h3>Enter your details:</h3>
+    <fieldset>
+        <legend>General Servey</legend>
+
+        <label>Name:
+            <input type="text" name="name" required="required"/>
+        </label>
+
+        <label>Password:</label>
+        <input type="password" name="password" required="required"/>
+        <br />
+
+			<label>Email: </label>
+			<input type="email" name="emailaddr" />
+
+			<br />
+            <label><h4>Year:</h4></label>
+			<input id="first" type="radio" name="year" value="1" required="required"/>
+			<label for="first">First Year</label>
+			<br />
+			<input id="second" type="radio" name="year" value="2"/>
+			<label for="second">Second Year</label>
+			<br />
+			<label>Third Year <input id="third" type="radio" name="year" value="3" /></label>
+			<br/>
+			<label><input id="fourth" type="radio" name="year" value="4" />Fourth Year</label>
+			<br />
+			<br />
+			<br />
+    </fieldset>
+   </form>
    
 </body>
 
