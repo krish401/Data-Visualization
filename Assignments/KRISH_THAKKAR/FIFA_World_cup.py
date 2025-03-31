@@ -61,6 +61,7 @@ app.layout = html.Div([
         html.Div(id='year-output', style={'marginTop':'10px'})
     ], style={"width": "48%", "display": "inline-block", "float": "right"}),
     html.Br(), html.Br(),
+
     dcc.Graph(id='choropleth')
 
 ])
@@ -90,16 +91,16 @@ def update_year_output(year):
     Output('choropleth', 'figure'),
     Input("country-dropdown", 'value')
 )
-def update_map():
+def update_map(_):
     fig=px.choropleth(
         win_counts,
         locations="Country",
         locationmode='country names',
         color="Wins",
-        color_continous_scale="Blues",
+        color_continuous_scale="Reds",
         title='World Cup Wins by Country'
     )
-    fig.update_feos(showcountries=True, showcoastlines=True, showland=True)
+    fig.update_geos(showcountries=True, showcoastlines=True, showland=True)
     return fig
 
 if __name__ == "__main__":
