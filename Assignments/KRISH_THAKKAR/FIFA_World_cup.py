@@ -39,27 +39,69 @@ win_counts.columns = ['Country', 'Wins']
 app = dash.Dash(__name__)
 
 app.layout = html.Div([
-    html.H1("FIFA World Cup Finals Dashboard", style={'textAlign':'center'})
+    html.H1("FIFA World Cup Finals Dashboard", style={'textAlign':'center'}),
 
     html.Div([
         html.Label("Select a Country"),
         dcc.Dropdown(
-            id='country-dropdown'
-            options=[{'label': c, "value"} for c in sorted(win_counts["Country"].unique())],
+            id='country-dropdown',
+            options=[{'label': c, "value":c} for c in sorted(win_counts["Country"].unique())],
             value='Brazil'
         ),
         html.Div(id='country-output', style={"marginTop": "10px"})
     ], style={"width": "48%", "display": "inline-block"}),
 
     html.Div([
-        html.label("Select A Year:"),
+        html.Label("Select A Year:"),
         dcc.Dropdown(
             id='year-dropdown',
             options=[{'label':int(y), "value":int(y)} for y in sorted(df["Year"].dropna().unique())],
             value=2022
         ),
-    ])
+        html.Div(id='year-output', style={'marginTop':'10px'})
+    ], style={"width": "48%", "display": "inline-block", "float": "right"}),
+    html.Br(), html.Br(),
+    dcc.Graph(id='choropleth')
 
 ])
 
+@app.callback(
+    Output('country-output', 'children'),
+    Input("country-dropdown", "value")
+)
+def update_country_output(country):
+    wins = win_counts[win_counts["Country"]==country]['Wins'].values[0]
+    return f'{country} has won the FIFA World Cup {wins} time(s).'
+
+@app.callback(
+    Output('year-output', "children"),
+    Input("year-dropdown", 'value')
+)
+def update_year_output(year):
+    row = df[df["Year"]==year]
+    if not row.empty and pd.notna(row.iloc[0]['Winner']):
+        winner = row.iloc[0]['Winner']
+        runner_up = row.iloc[0]['Runner_Up']
+        return f'In {year}, {winner} won against {runner_up}.'
+    else:
+        return f'No data available fir the year {year}. TBD'
+    
+@app.callback(
+    Output('choropleth', 'figure'),
+    Input("country-dropdown", 'value')
+)
+def update_map():
+    fig=px.choropleth(
+        win_counts,
+        locations="Country",
+        locationmode='country names',
+        color="Wins",
+        color_continous_scale="Blues",
+        title='World Cup Wins by Country'
+    )
+    fig.update_feos(showcountries=True, showcoastlines=True, showland=True)
+    return fig
+
+if __name__ == "__main__":
+    app.run(debug=True)
 
