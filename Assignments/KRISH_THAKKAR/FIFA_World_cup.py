@@ -69,10 +69,20 @@ app.layout = html.Div(
         ], style={"width": "48%", "display": "inline-block"}),
 
         html.Br(), html.Br(),
+        
 
-        dcc.Graph(id="choropleth")
-    ]
-)
+       html.Div([
+            dcc.Graph(
+                id="choropleth",
+                style={"height": "80vh", "width": "90vw"}
+            )
+        ], style={
+            "paddingLeft": "25vw",  # shift it right by 10% of screen width
+            "boxSizing": "border-box"
+        })
+
+
+    ])
 
 @app.callback(
     Output('country-output', 'children'),
@@ -109,11 +119,16 @@ def update_map(_):
         title="World Cup Wins by Country"
     )
     fig.update_layout(
+        height=700,  
+        width=1100, 
         plot_bgcolor="#000000",
         paper_bgcolor="#000000",
         font_color="white"
     )
-    fig.update_geos(showcountries=True, showcoastlines=True, showland=True)
+    fig.update_geos(showcountries=True,
+    showcoastlines=True,
+    showland=True)
+
     return fig
 
 if __name__ == "__main__":
