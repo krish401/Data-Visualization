@@ -42,7 +42,7 @@ app.title = "FIFA World Cup Dashboard"
 
 
 app.layout = html.Div(
-    style={"backgroundColor": "#000000", "color": "white", "fontFamily": "Arial, sans-serif", "padding": "20px"},
+    style={"backgroundColor": "#000000", "color": "white", "fontFamily": "Arial, sans-serif", "padding": "20px","overflowX": "hidden","boxSizing": "border-box"},
     children=[
         html.H1("FIFA World Cup Finals Dashboard", style={"textAlign": "center", "color": "white"}),
 
@@ -77,7 +77,7 @@ app.layout = html.Div(
                 style={"height": "80vh", "width": "90vw"}
             )
         ], style={
-            "paddingLeft": "25vw",  # shift it right by 10% of screen width
+            "paddingLeft": "18vw",  # shift it right by 10% of screen width
             "boxSizing": "border-box"
         })
 
