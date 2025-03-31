@@ -38,33 +38,41 @@ win_counts.columns = ['Country', 'Wins']
 
 app = dash.Dash(__name__)
 
-app.layout = html.Div([
-    html.H1("FIFA World Cup Finals Dashboard", style={'textAlign':'center'}),
+app.title = "FIFA World Cup Dashboard"
 
-    html.Div([
-        html.Label("Select a Country"),
-        dcc.Dropdown(
-            id='country-dropdown',
-            options=[{'label': c, "value":c} for c in sorted(win_counts["Country"].unique())],
-            value='Brazil'
-        ),
-        html.Div(id='country-output', style={"marginTop": "10px"})
-    ], style={"width": "48%", "display": "inline-block"}),
 
-    html.Div([
-        html.Label("Select A Year:"),
-        dcc.Dropdown(
-            id='year-dropdown',
-            options=[{'label':int(y), "value":int(y)} for y in sorted(df["Year"].dropna().unique())],
-            value=2022
-        ),
-        html.Div(id='year-output', style={'marginTop':'10px'})
-    ], style={"width": "48%", "display": "inline-block", "float": "right"}),
-    html.Br(), html.Br(),
+app.layout = html.Div(
+    style={"backgroundColor": "#000000", "color": "white", "fontFamily": "Arial, sans-serif", "padding": "20px"},
+    children=[
+        html.H1("FIFA World Cup Finals Dashboard", style={"textAlign": "center", "color": "white"}),
 
-    dcc.Graph(id='choropleth')
+        html.Div([
+            html.Label("Select a Country:", style={"color": "white", "fontWeight": "bold"}),
+            dcc.Dropdown(
+                id='country-dropdown',
+                options=[{"label": c, "value": c} for c in sorted(win_counts["Country"].unique())],
+                value="Brazil",
+                style={"backgroundColor": "#1e1e1e", "color": "black"},
+            ),
+            html.Div(id='country-output', style={"marginTop": "10px", "color": "white"})
+        ], style={"width": "48%", "display": "inline-block", "paddingRight": "2%"}),
 
-])
+        html.Div([
+            html.Label("Select a Year:", style={"color": "white", "fontWeight": "bold"}),
+            dcc.Dropdown(
+                id='year-dropdown',
+                options=[{"label": int(y), "value": int(y)} for y in sorted(df["Year"].dropna().unique())],
+                value=2022,
+                style={"backgroundColor": "#1e1e1e", "color": "black"},
+            ),
+            html.Div(id='year-output', style={"marginTop": "10px", "color": "white"})
+        ], style={"width": "48%", "display": "inline-block"}),
+
+        html.Br(), html.Br(),
+
+        dcc.Graph(id="choropleth")
+    ]
+)
 
 @app.callback(
     Output('country-output', 'children'),
@@ -85,20 +93,25 @@ def update_year_output(year):
         runner_up = row.iloc[0]['Runner_Up']
         return f'In {year}, {winner} won against {runner_up}.'
     else:
-        return f'No data available fir the year {year}. TBD'
+        return f'No data available for the year {year}. TBD'
     
 @app.callback(
     Output('choropleth', 'figure'),
     Input("country-dropdown", 'value')
 )
 def update_map(_):
-    fig=px.choropleth(
+    fig = px.choropleth(
         win_counts,
         locations="Country",
-        locationmode='country names',
+        locationmode="country names",
         color="Wins",
-        color_continuous_scale="Reds",
-        title='World Cup Wins by Country'
+        color_continuous_scale="Blues",
+        title="World Cup Wins by Country"
+    )
+    fig.update_layout(
+        plot_bgcolor="#000000",
+        paper_bgcolor="#000000",
+        font_color="white"
     )
     fig.update_geos(showcountries=True, showcoastlines=True, showland=True)
     return fig
